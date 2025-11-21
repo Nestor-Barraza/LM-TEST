@@ -1,4 +1,5 @@
 import { algoliasearch } from 'algoliasearch';
+import type { SearchClient, SearchMethodParams, SearchResponses } from 'algoliasearch';
 
 if (!process.env.NEXT_PUBLIC_ALGOLIA_APP_ID) {
   throw new Error('NEXT_PUBLIC_ALGOLIA_APP_ID is not defined');
@@ -8,41 +9,22 @@ if (!process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY) {
   throw new Error('NEXT_PUBLIC_ALGOLIA_SEARCH_KEY is not defined');
 }
 
-const client = algoliasearch(
+const baseClient = algoliasearch(
   process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
   process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_KEY
 );
 
-interface SearchRequest {
-  params?: {
-    query?: string;
-  };
-}
-
-interface SearchResult {
-  hits: unknown[];
-  nbHits: number;
-  nbPages: number;
-  page: number;
-  processingTimeMS: number;
-  hitsPerPage: number;
-  exhaustiveNbHits: boolean;
-  query: string;
-  params: string;
-}
-
-interface SearchResponse {
-  results: SearchResult[];
-}
-
-export const searchClient = {
-  ...client,
-  search(requests: Parameters<typeof client.search>[0]): ReturnType<typeof client.search> {
+export const searchClient: SearchClient = {
+  ...baseClient,
+  search<TObject>(requests: SearchMethodParams): Promise<SearchResponses<TObject>> {
     const requestsArray = Array.isArray(requests) ? requests : [requests];
 
-    const allEmpty = requestsArray.every((request: SearchRequest) => {
-      const params = request.params;
-      return !params?.query || params.query.trim() === '';
+    const allEmpty = requestsArray.every((request) => {
+      if ('params' in request && request.params) {
+        const query = request.params.query;
+        return !query || (typeof query === 'string' && query.trim() === '');
+      }
+      return true;
     });
 
     if (allEmpty) {
@@ -58,10 +40,11 @@ export const searchClient = {
           query: '',
           params: '',
         })),
-      } as SearchResponse) as ReturnType<typeof client.search>;
+      }) as Promise<SearchResponses<TObject>>;
     }
 
-    return client.search(requests).catch((error: Error) => {
+    
+    return baseClient.search<TObject>(requests).catch((error: Error) => {
       if (error.message?.includes('does not exist')) {
         return {
           results: requestsArray.map(() => ({
@@ -75,7 +58,7 @@ export const searchClient = {
             query: '',
             params: '',
           })),
-        } as SearchResponse as ReturnType<typeof client.search>;
+        } as SearchResponses<TObject>;
       }
       throw error;
     });

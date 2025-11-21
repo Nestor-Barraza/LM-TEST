@@ -52,9 +52,12 @@ function SearchInput({ onSearch }: SearchBarProps) {
       case 'Enter':
         e.preventDefault();
         if (selectedIndex >= 0 && selectedIndex < hits.length) {
-          router.push(`/product/${hits[selectedIndex].objectID}`);
-          setIsFocused(false);
-          inputRef.current?.blur();
+          const selectedHit = hits[selectedIndex];
+          if (selectedHit) {
+            router.push(`/product/${selectedHit.objectID}`);
+            setIsFocused(false);
+            inputRef.current?.blur();
+          }
         } else if (query.trim()) {
           onSearch(query.trim());
           setIsFocused(false);
@@ -96,8 +99,11 @@ function SearchInput({ onSearch }: SearchBarProps) {
           type="button"
           onClick={() => {
             if (selectedIndex >= 0 && selectedIndex < hits.length) {
-              router.push(`/product/${hits[selectedIndex].objectID}`);
-              setIsFocused(false);
+              const selectedHit = hits[selectedIndex];
+              if (selectedHit) {
+                router.push(`/product/${selectedHit.objectID}`);
+                setIsFocused(false);
+              }
             } else if (query.trim()) {
               onSearch(query.trim());
               setIsFocused(false);
