@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { useSearchBox, useHits, Configure } from 'react-instantsearch';
+import { useSearchBox, useHits, Configure, useInstantSearch } from 'react-instantsearch';
 import { InstantSearchNext } from 'react-instantsearch-nextjs';
 import { searchClient } from '@/lib/algolia';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Spinner } from '@/components/atoms/Spinner';
 
 interface Hit {
   objectID: string;
@@ -27,11 +28,14 @@ interface SearchBarProps {
 function SearchInput({ onSearch }: SearchBarProps) {
   const { query, refine } = useSearchBox();
   const { hits, results } = useHits<Hit>();
+  const { status } = useInstantSearch();
   const [isFocused, setIsFocused] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  const isLoading = status === 'loading' || status === 'stalled';
 
   useEffect(() => {
     setSelectedIndex(-1);
@@ -125,7 +129,14 @@ function SearchInput({ onSearch }: SearchBarProps) {
           ref={resultsRef}
           className="absolute top-full left-0 right-0 mt-2 bg-white rounded shadow-xl border border-gray-200 max-h-[500px] overflow-y-auto z-50"
         >
-          {hits.length === 0 ? (
+          {isLoading ? (
+            <div className="p-6 flex justify-center items-center">
+              <div className="flex flex-col items-center gap-2">
+                <Spinner size="sm" />
+                <p className="text-gray-500 text-xs">Buscando...</p>
+              </div>
+            </div>
+          ) : hits.length === 0 ? (
             <div className="p-6">
               <p className="text-gray-500 text-center text-sm">No se encontraron productos</p>
             </div>

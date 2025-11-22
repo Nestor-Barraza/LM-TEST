@@ -1,13 +1,14 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useHits, useSearchBox, Configure, Stats } from 'react-instantsearch';
+import { useHits, useSearchBox, Configure, Stats, useInstantSearch } from 'react-instantsearch';
 import { InstantSearchNext } from 'react-instantsearch-nextjs';
 import { searchClient } from '@/lib/algolia';
 import { Header } from '@/components/organisms/Header';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';
+import { Spinner } from '@/components/atoms/Spinner';
 
 interface Hit {
   objectID: string;
@@ -24,6 +25,18 @@ interface Hit {
 
 function ProductGrid() {
   const { hits } = useHits<Hit>();
+  const { status } = useInstantSearch();
+
+  if (status === 'loading' || status === 'stalled') {
+    return (
+      <div className="flex justify-center items-center py-20">
+        <div className="flex flex-col items-center gap-4">
+          <Spinner size="lg" />
+          <p className="text-gray-600">Buscando productos...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (hits.length === 0) {
     return (
