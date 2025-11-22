@@ -1,8 +1,9 @@
+import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
-import Image from 'next/image';
 import Link from 'next/link';
 import sql from '@/lib/db';
 import { Header } from '@/components/organisms/Header';
+import { ImageWithPlaceholder } from '@/components/atoms/ImageWithPlaceholder';
 
 interface ProductPageProps {
   params: Promise<{
@@ -69,6 +70,60 @@ async function getProduct(id: string): Promise<Product | null> {
   } as Product;
 }
 
+export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
+  const { id } = await params;
+  const product = await getProduct(id);
+
+  if (!product) {
+    return {
+      title: 'Producto no encontrado',
+    };
+  }
+
+  const productUrl = `/product/${id}`;
+  const imageUrl = product.images[0] || '/og-image.jpg';
+
+  return {
+    title: product.title,
+    description: product.description || `${product.title} - ${product.condition === 'new' ? 'Nuevo' : 'Usado'} - $${Number(product.price).toLocaleString('es-AR')} en Mercado Libre. ${product.sold_quantity} vendidos. Stock disponible: ${product.available_quantity} unidades.`,
+    keywords: [
+      product.title,
+      product.category_name || '',
+      product.condition === 'new' ? 'nuevo' : 'usado',
+      'mercado libre',
+      'comprar',
+      'online',
+    ].filter(Boolean),
+    alternates: {
+      canonical: productUrl,
+    },
+    openGraph: {
+      title: `${product.title} | Mercado Libre`,
+      description: product.description || `${product.title} - ${product.condition === 'new' ? 'Nuevo' : 'Usado'}`,
+      url: productUrl,
+      type: 'website',
+      images: [
+        {
+          url: imageUrl,
+          width: 800,
+          height: 800,
+          alt: product.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${product.title} | Mercado Libre`,
+      description: product.description || `${product.title} - ${product.condition === 'new' ? 'Nuevo' : 'Usado'}`,
+      images: [imageUrl],
+    },
+    robots: {
+      index: product.is_active,
+      follow: product.is_active,
+    },
+  };
+}
+
 export default async function ProductPage({ params }: ProductPageProps) {
   const { id } = await params;
   const product = await getProduct(id);
@@ -82,8 +137,78 @@ export default async function ProductPage({ params }: ProductPageProps) {
     redirect(`/search?q=${encodeURIComponent(query)}`);
   }
 
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.title,
+    description: product.description || product.title,
+    image: product.images,
+    sku: product.id,
+    offers: {
+      '@type': 'Offer',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/product/${id}`,
+      priceCurrency: product.currency,
+      price: Number(product.price),
+      itemCondition: product.condition === 'new'
+        ? 'https://schema.org/NewCondition'
+        : 'https://schema.org/UsedCondition',
+      availability: product.available_quantity > 0
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+      seller: {
+        '@type': 'Organization',
+        name: 'Mercado Libre',
+      },
+    },
+    ...(Number(product.average_rating) > 0 && {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: Number(product.average_rating),
+        reviewCount: product.review_count,
+        bestRating: 5,
+        worstRating: 1,
+      },
+    }),
+    ...(product.category_name && {
+      category: product.category_name,
+    }),
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Inicio',
+        item: process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000',
+      },
+      ...(product.category_name ? [{
+        '@type': 'ListItem',
+        position: 2,
+        name: product.category_name,
+        item: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/category/${product.category_slug}`,
+      }] : []),
+      {
+        '@type': 'ListItem',
+        position: product.category_name ? 3 : 2,
+        name: product.title,
+        item: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/product/${id}`,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Header onSearch={handleSearch} />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
@@ -101,7 +226,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div className="space-y-4">
             <div className="relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden">
               {product.images.length > 0 && product.images[0] ? (
-                <Image
+                <ImageWithPlaceholder
                   src={product.images[0]}
                   alt={product.title}
                   fill
@@ -122,7 +247,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
               <div className="grid grid-cols-4 gap-2">
                 {product.images.slice(1, 5).map((image, idx) => (
                   <div key={idx} className="relative aspect-square bg-gray-100 rounded overflow-hidden">
-                    <Image
+                    <ImageWithPlaceholder
                       src={image}
                       alt={`${product.title} - imagen ${idx + 2}`}
                       fill

@@ -4,9 +4,9 @@ import { useState, useRef, useEffect } from 'react';
 import { useSearchBox, useHits, Configure, useInstantSearch } from 'react-instantsearch';
 import { InstantSearchNext } from 'react-instantsearch-nextjs';
 import { searchClient } from '@/lib/algolia';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/atoms/Spinner';
+import { ImageWithPlaceholder } from '@/components/atoms/ImageWithPlaceholder';
 
 interface Hit {
   objectID: string;
@@ -155,16 +155,16 @@ function SearchInput({ onSearch }: SearchBarProps) {
                 >
                   <div className="relative w-16 h-16 flex-shrink-0 bg-gray-100 rounded overflow-hidden">
                     {hit.thumbnail ? (
-                      <Image
+                      <ImageWithPlaceholder
                         src={hit.thumbnail}
-                        alt={hit.title}
+                        alt={`${hit.title} - $${hit.price.toLocaleString('es-AR')}`}
                         fill
                         sizes="64px"
                         className="object-cover"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                       </div>
