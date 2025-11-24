@@ -11,10 +11,10 @@ interface ProductDetailProps {
 export const ProductDetail = ({ product }: ProductDetailProps) => {
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+        <div className="space-y-3 sm:space-y-4">
           {product.pictures && product.pictures.length > 0 ? (
-            <div className="bg-gray-100 rounded-lg p-8 flex items-center justify-center">
+            <div className="bg-gray-100 rounded-lg p-4 sm:p-6 md:p-8 flex items-center justify-center">
               <img
                 src={product.pictures[0]?.url}
                 alt={product.title}
@@ -22,17 +22,17 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
               />
             </div>
           ) : (
-            <div className="bg-gray-100 rounded-lg p-8 h-96 flex items-center justify-center">
+            <div className="bg-gray-100 rounded-lg p-4 sm:p-6 md:p-8 h-64 sm:h-80 md:h-96 flex items-center justify-center">
               <span className="text-gray-400">Sin imagen</span>
             </div>
           )}
 
           {product.pictures && product.pictures.length > 1 && (
-            <div className="grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
               {product.pictures.slice(1, 5).map((picture) => (
                 <div
                   key={picture.id}
-                  className="bg-gray-100 rounded-md p-2 cursor-pointer hover:ring-2 hover:ring-ml-blue"
+                  className="bg-gray-100 rounded-md p-1.5 sm:p-2 cursor-pointer hover:ring-2 hover:ring-ml-blue"
                 >
                   <img
                     src={picture.url}
@@ -45,7 +45,7 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
           )}
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-5 md:space-y-6">
           <div className="space-y-2">
             {product.condition === 'new' ? (
               <Badge variant="info">Nuevo</Badge>
@@ -53,7 +53,7 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
               <Badge variant="warning">Usado</Badge>
             )}
 
-            <h1 className="text-2xl lg:text-3xl font-semibold">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-semibold">
               {product.title}
             </h1>
 
@@ -71,13 +71,13 @@ export const ProductDetail = ({ product }: ProductDetailProps) => {
               <Price
                 amount={product.original_price}
                 currency={product.currency_id}
-                className="text-lg line-through text-gray-500"
+                className="text-base sm:text-lg line-through text-gray-500"
               />
             )}
             <Price
               amount={product.price}
               currency={product.currency_id}
-              className="text-4xl"
+              className="text-2xl sm:text-3xl md:text-4xl"
             />
 
             {product.installments && (

@@ -24,13 +24,13 @@ export const Header = ({ onSearch, initialQuery = '', showSearch = true }: Heade
   return (
     <header className="bg-ml-yellow sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4">
-        <div className="flex items-center gap-4 py-3">
+        <div className="flex items-center gap-2 md:gap-4 py-3">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
             <img
               src="/assets/Logo_ML.png"
               alt="Mercado Libre"
-              className="h-12 w-auto object-contain"
+              className="h-9 sm:h-10 md:h-12 w-auto object-contain"
               style={{ maxWidth: '160px' }}
             />
           </Link>
@@ -55,8 +55,8 @@ export const Header = ({ onSearch, initialQuery = '', showSearch = true }: Heade
           </div>
 
           {/* Cart Icon */}
-          <Link href="/cart" className="relative flex-shrink-0 ml-6">
-            <ShoppingCart size={24} className="text-gray-700 hover:text-gray-900 transition-colors" />
+          <Link href="/cart" className="relative flex-shrink-0 ml-2 sm:ml-4 md:ml-6">
+            <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 hover:text-gray-900 transition-colors" />
             {mounted && totalItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                 {totalItems}

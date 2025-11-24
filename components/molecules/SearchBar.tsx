@@ -127,17 +127,17 @@ function SearchInput({ onSearch }: SearchBarProps) {
       {showResults && (
         <div
           ref={resultsRef}
-          className="absolute top-full left-0 right-0 mt-2 bg-white rounded shadow-xl border border-gray-200 max-h-[500px] overflow-y-auto z-50"
+          className="absolute top-full left-0 right-0 mt-2 bg-white rounded shadow-xl border border-gray-200 max-h-[300px] sm:max-h-[400px] md:max-h-[500px] overflow-y-auto z-50"
         >
           {isLoading ? (
-            <div className="p-6 flex justify-center items-center">
+            <div className="p-4 sm:p-6 flex justify-center items-center">
               <div className="flex flex-col items-center gap-2">
                 <Spinner size="sm" />
                 <p className="text-gray-500 text-xs">Buscando...</p>
               </div>
             </div>
           ) : hits.length === 0 ? (
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               <p className="text-gray-500 text-center text-sm">No se encontraron productos</p>
             </div>
           ) : (
@@ -149,22 +149,22 @@ function SearchInput({ onSearch }: SearchBarProps) {
                     router.push(`/product/${hit.objectID}`);
                     setIsFocused(false);
                   }}
-                  className={`flex items-center gap-3 p-3 cursor-pointer transition-colors ${
+                  className={`flex items-center gap-3 sm:gap-4 p-3 sm:p-4 cursor-pointer transition-colors ${
                     selectedIndex === index ? 'bg-blue-50' : 'hover:bg-gray-50'
                   }`}
                 >
-                  <div className="relative w-16 h-16 flex-shrink-0 bg-gray-100 rounded overflow-hidden">
+                  <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex-shrink-0 bg-gray-100 rounded overflow-hidden">
                     {hit.thumbnail ? (
                       <ImageWithPlaceholder
                         src={hit.thumbnail}
                         alt={`${hit.title} - $${hit.price.toLocaleString('es-AR')}`}
                         fill
-                        sizes="64px"
+                        sizes="(max-width: 640px) 48px, (max-width: 768px) 56px, 64px"
                         className="object-cover"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                       </div>
@@ -172,24 +172,24 @@ function SearchInput({ onSearch }: SearchBarProps) {
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <h3 className={`font-normal text-sm truncate ${
+                    <h3 className={`font-normal text-xs sm:text-sm truncate ${
                       selectedIndex === index ? 'text-blue-600' : 'text-gray-900'
                     }`}>
                       {hit.title}
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="text-2xl font-light text-gray-900">
+                      <span className="text-base sm:text-lg md:text-xl font-light text-gray-900">
                         ${hit.price.toLocaleString('es-AR')}
                       </span>
                       {hit.average_rating > 0 && (
                         <div className="flex items-center gap-0.5">
-                          <span className="text-green-600 text-sm">★</span>
-                          <span className="text-xs text-gray-600">{hit.average_rating.toFixed(1)}</span>
+                          <span className="text-green-600 text-xs sm:text-sm">★</span>
+                          <span className="text-[10px] sm:text-xs text-gray-600">{hit.average_rating.toFixed(1)}</span>
                         </div>
                       )}
                     </div>
                     {hit.category_name && (
-                      <span className="text-xs text-gray-500 mt-0.5 inline-block">
+                      <span className="text-[10px] sm:text-xs text-gray-500 mt-0.5 inline-block">
                         {hit.category_name}
                       </span>
                     )}

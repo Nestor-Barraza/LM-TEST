@@ -346,23 +346,23 @@ export function CheckoutClient() {
     return (
       <>
         <Header onSearch={handleSearch} />
-        <main className="bg-gray-50 min-h-screen flex items-center justify-center py-12">
+        <main className="bg-gray-50 min-h-screen flex items-center justify-center py-6 sm:py-8 md:py-12">
           <div className="max-w-2xl w-full mx-auto px-4">
-            <div className="bg-white rounded-lg shadow-lg p-8 md:p-12">
+            <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8 md:p-12">
               {/* Animated logo/icon */}
-              <div className="flex justify-center mb-8">
+              <div className="flex justify-center mb-6 sm:mb-8">
                 <div className="relative">
-                  <div className="w-20 h-20 bg-ml-yellow rounded-full flex items-center justify-center animate-pulse">
-                    <ShoppingBag size={40} className="text-gray-900" />
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 bg-ml-yellow rounded-full flex items-center justify-center animate-pulse">
+                    <ShoppingBag className="w-8 h-8 sm:w-10 sm:h-10 text-gray-900" />
                   </div>
-                  <div className="absolute inset-0 w-20 h-20 bg-ml-yellow rounded-full animate-ping opacity-20"></div>
+                  <div className="absolute inset-0 w-16 h-16 sm:w-20 sm:h-20 bg-ml-yellow rounded-full animate-ping opacity-20"></div>
                 </div>
               </div>
 
-              <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-2">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-gray-900 mb-2">
                 Procesando tu compra
               </h2>
-              <p className="text-center text-gray-600 mb-8">
+              <p className="text-center text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
                 Por favor espera mientras confirmamos tu pedido
               </p>
 
@@ -453,20 +453,20 @@ export function CheckoutClient() {
       <>
         <Header onSearch={handleSearch} />
         <main className="bg-gray-50 min-h-screen">
-          <div className="max-w-4xl mx-auto px-4 py-12">
-            <div className="bg-white rounded-lg p-12 text-center">
-              <ShoppingBag size={64} className="mx-auto mb-4 text-gray-400" />
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
+            <div className="bg-white rounded-lg p-6 sm:p-10 md:p-12 text-center">
+              <ShoppingBag className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 text-gray-400" />
+              <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2">
                 No hay productos en el carrito
               </h1>
-              <p className="text-gray-600 mb-6">
+              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
                 Agrega productos a tu carrito antes de continuar al checkout
               </p>
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-shadow"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 sm:px-6 sm:py-3 rounded-lg font-medium hover:shadow-lg transition-shadow text-sm sm:text-base"
               >
-                <ArrowLeft size={20} />
+                <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 Volver al inicio
               </Link>
             </div>
@@ -489,27 +489,27 @@ export function CheckoutClient() {
             ]}
           />
 
-          <h1 className="text-3xl font-bold text-gray-900 mb-8 mt-4">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 mt-4">
             Finalizar compra
           </h1>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {/* Form Section */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-lg p-6 mb-6">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">
+              <div className="bg-white rounded-lg p-4 sm:p-6 mb-4 sm:mb-6">
+                <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">
                   Información de entrega
                 </h2>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                   {/* Auto-detect location status */}
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <div className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 sm:p-4">
+                    <div className="flex items-start gap-2 sm:gap-3">
+                      <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                       <div className="flex-1">
-                        <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                        <h3 className="text-xs sm:text-sm font-semibold text-gray-900 mb-1">
                           Detección automática de ubicación
                         </h3>
                         {zipCodeMessage ? (
@@ -550,14 +550,14 @@ export function CheckoutClient() {
                       name="zipCode"
                       value={formData.zipCode}
                       onChange={handleZipCodeChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                      className="w-full px-3 py-2 sm:px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base"
                       placeholder="110111 (6 dígitos)"
                       maxLength={6}
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="fullName" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
                       Nombre completo *
                     </label>
                     <input
@@ -566,19 +566,19 @@ export function CheckoutClient() {
                       name="fullName"
                       value={formData.fullName}
                       onChange={handleInputChange}
-                      className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
+                      className={`w-full px-3 py-2 sm:px-4 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base ${
                         errors.fullName ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="Juan Pérez"
                     />
                     {errors.fullName && (
-                      <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>
+                      <p className="mt-1 text-xs sm:text-sm text-red-600">{errors.fullName}</p>
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                      <label htmlFor="email" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
                         Email *
                       </label>
                       <input
@@ -587,18 +587,18 @@ export function CheckoutClient() {
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
+                        className={`w-full px-3 py-2 sm:px-4 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base ${
                           errors.email ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="juan@ejemplo.com"
                       />
                       {errors.email && (
-                        <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                        <p className="mt-1 text-xs sm:text-sm text-red-600">{errors.email}</p>
                       )}
                     </div>
 
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                      <label htmlFor="phone" className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
                         Teléfono *
                       </label>
                       <input
@@ -607,13 +607,13 @@ export function CheckoutClient() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent ${
+                        className={`w-full px-3 py-2 sm:px-4 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base ${
                           errors.phone ? 'border-red-500' : 'border-gray-300'
                         }`}
                         placeholder="300 123 4567"
                       />
                       {errors.phone && (
-                        <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
+                        <p className="mt-1 text-xs sm:text-sm text-red-600">{errors.phone}</p>
                       )}
                     </div>
                   </div>

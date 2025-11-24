@@ -48,27 +48,27 @@ function ProductGrid() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4">
       {hits.map((hit) => (
         <Link
           key={hit.objectID}
           href={`/product/${hit.objectID}`}
           className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow block"
         >
-          <div className="flex gap-4 p-4">
+          <div className="flex gap-3 sm:gap-4 p-3 sm:p-4">
             {/* Image - Left side */}
-            <div className="relative w-40 h-40 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
+            <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
               {hit.thumbnail ? (
                 <ImageWithPlaceholder
                   src={hit.thumbnail}
                   alt={`${hit.title} - ${hit.condition === 'new' ? 'Nuevo' : 'Usado'} - $${hit.price.toLocaleString('es-AR')}`}
                   fill
-                  sizes="160px"
+                  sizes="(max-width: 640px) 96px, (max-width: 768px) 128px, 160px"
                   className="object-cover"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <svg className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                 </div>
@@ -76,33 +76,33 @@ function ProductGrid() {
             </div>
 
             {/* Content - Right side */}
-            <div className="flex-1 flex flex-col justify-between">
+            <div className="flex-1 flex flex-col justify-between min-w-0">
               <div>
                 {/* Category/Brand */}
-                <p className="text-xs text-gray-500 uppercase mb-1">
+                <p className="text-[10px] sm:text-xs text-gray-500 uppercase mb-1">
                   {hit.category_name || 'PRODUCTO'}
                 </p>
 
                 {/* Title */}
-                <h3 className="text-sm text-gray-900 line-clamp-2 mb-2">
+                <h3 className="text-xs sm:text-sm text-gray-900 line-clamp-2 mb-2">
                   {hit.title}
                 </h3>
 
                 {/* Price */}
                 <div className="mb-2">
-                  <div className="text-2xl font-light text-gray-900">
-                    ${hit.price.toLocaleString('es-AR')} <span className="text-sm">COP</span>
+                  <div className="text-lg sm:text-xl md:text-2xl font-light text-gray-900">
+                    ${hit.price.toLocaleString('es-AR')} <span className="text-xs sm:text-sm">COP</span>
                   </div>
 
                   {/* Free shipping badge */}
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="text-xs text-green-600 font-semibold">Envío gratis</span>
+                    <span className="text-[10px] sm:text-xs text-green-600 font-semibold">Envío gratis</span>
                   </div>
                 </div>
               </div>
 
               {/* Rating and sold quantity */}
-              <div className="flex items-center gap-4 text-sm">
+              <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm">
                 {hit.average_rating > 0 && (
                   <div className="flex items-center gap-1">
                     <div className="flex items-center">
@@ -159,12 +159,12 @@ function Pagination() {
   }
 
   return (
-    <div className="flex justify-center items-center gap-2 mt-8 py-4">
+    <div className="flex justify-center items-center gap-1 sm:gap-2 mt-6 sm:mt-8 py-4">
       {/* Previous button */}
       <button
         onClick={() => refine(currentRefinement - 1)}
         disabled={currentRefinement === 0}
-        className="px-3 py-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-2 py-1.5 sm:px-3 sm:py-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
         aria-label="Página anterior"
       >
         ‹
@@ -175,7 +175,7 @@ function Pagination() {
         <button
           key={page}
           onClick={() => refine(page)}
-          className={`w-9 h-9 rounded ${
+          className={`w-8 h-8 sm:w-9 sm:h-9 rounded text-sm sm:text-base ${
             currentRefinement === page
               ? 'bg-ml-blue text-white font-bold'
               : 'hover:bg-gray-100 text-gray-700'
@@ -189,7 +189,7 @@ function Pagination() {
       <button
         onClick={() => refine(currentRefinement + 1)}
         disabled={currentRefinement >= nbPages - 1}
-        className="px-3 py-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-2 py-1.5 sm:px-3 sm:py-2 rounded hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
         aria-label="Siguiente página"
       >
         ›

@@ -86,96 +86,96 @@ export function HomeClient() {
           />
 
           {/* Categories Row */}
-          <div className="bg-gradient-to-b from-black to-gray-900 py-6">
+          <div className="bg-gradient-to-b from-black to-gray-900 py-4 sm:py-6">
             <div className="container mx-auto px-4">
-              <div className="flex items-center justify-center gap-6 overflow-x-auto">
+              <div className="flex items-center justify-center gap-3 sm:gap-4 md:gap-6 overflow-x-auto">
                 {/* Ofertas */}
-                <div className="flex flex-col items-center min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
-                  <div className="bg-white rounded-xl p-4 mb-3 w-20 h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all relative overflow-visible">
+                <div className="flex flex-col items-center min-w-[100px] sm:min-w-[120px] md:min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
+                  <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 mb-2 sm:mb-3 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all relative overflow-visible">
                     <PercentTagIcon />
-                    <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5 rounded-full z-10">
+                    <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-yellow-400 text-black text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full z-10">
                       HASTA
                     </span>
                   </div>
-                  <p className="text-yellow-400 font-bold text-xl mb-1">60% OFF</p>
-                  <p className="text-white text-xs font-bold uppercase">OFERTAS</p>
+                  <p className="text-yellow-400 font-bold text-base sm:text-lg md:text-xl mb-1">60% OFF</p>
+                  <p className="text-white text-[10px] sm:text-xs font-bold uppercase">OFERTAS</p>
                 </div>
 
                 {/* Liquidación */}
-                <div className="flex flex-col items-center min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
-                  <div className="bg-white rounded-xl p-4 mb-3 w-20 h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
+                <div className="flex flex-col items-center min-w-[100px] sm:min-w-[120px] md:min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
+                  <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 mb-2 sm:mb-3 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
                     <ShoppingBagIcon />
                   </div>
-                  <p className="text-yellow-400 font-bold text-xl mb-1">50% OFF</p>
-                  <p className="text-white text-xs font-bold uppercase">LIQUIDACIÓN</p>
+                  <p className="text-yellow-400 font-bold text-base sm:text-lg md:text-xl mb-1">50% OFF</p>
+                  <p className="text-white text-[10px] sm:text-xs font-bold uppercase">LIQUIDACIÓN</p>
                 </div>
 
                 {/* Remates de Bodega */}
-                <div className="flex flex-col items-center min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
-                  <div className="bg-white rounded-xl p-4 mb-3 w-20 h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all relative overflow-visible">
+                <div className="flex flex-col items-center min-w-[100px] sm:min-w-[120px] md:min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
+                  <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 mb-2 sm:mb-3 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all relative overflow-visible">
                     <ReceiptIcon />
-                    <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5 rounded-full z-10">
+                    <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-yellow-400 text-black text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full z-10">
                       HASTA
                     </span>
                   </div>
-                  <p className="text-yellow-400 font-bold text-xl mb-1">50% OFF</p>
-                  <p className="text-white text-xs font-bold uppercase leading-tight">
+                  <p className="text-yellow-400 font-bold text-base sm:text-lg md:text-xl mb-1">50% OFF</p>
+                  <p className="text-white text-[10px] sm:text-xs font-bold uppercase leading-tight">
                     REMATES DE<br />BODEGA
                   </p>
                 </div>
 
                 {/* Cupones */}
-                <div className="flex flex-col items-center min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
-                  <div className="bg-white rounded-xl p-4 mb-3 w-20 h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
+                <div className="flex flex-col items-center min-w-[100px] sm:min-w-[120px] md:min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
+                  <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 mb-2 sm:mb-3 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
                     <CouponIcon />
                   </div>
-                  <p className="text-yellow-400 font-bold text-xl mb-1">CUPONES</p>
-                  <p className="text-white text-xs font-bold uppercase leading-tight">
+                  <p className="text-yellow-400 font-bold text-base sm:text-lg md:text-xl mb-1">CUPONES</p>
+                  <p className="text-white text-[10px] sm:text-xs font-bold uppercase leading-tight">
                     EXTRA<br />DESCUENTOS
                   </p>
                 </div>
 
                 {/* Cuotas */}
-                <div className="flex flex-col items-center min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
-                  <div className="bg-white rounded-xl p-4 mb-3 w-20 h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
+                <div className="flex flex-col items-center min-w-[100px] sm:min-w-[120px] md:min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
+                  <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 mb-2 sm:mb-3 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
                     <CreditCardIcon />
                   </div>
-                  <p className="text-yellow-400 font-bold text-xl mb-1">CUOTAS</p>
-                  <p className="text-white text-xs font-bold uppercase leading-tight">
+                  <p className="text-yellow-400 font-bold text-base sm:text-lg md:text-xl mb-1">CUOTAS</p>
+                  <p className="text-white text-[10px] sm:text-xs font-bold uppercase leading-tight">
                     PAGA A 0%<br />INTERÉS
                   </p>
                 </div>
 
                 {/* Te llegan mañana */}
-                <div className="flex flex-col items-center min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
-                  <div className="bg-white rounded-xl p-4 mb-3 w-20 h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all relative overflow-visible">
+                <div className="flex flex-col items-center min-w-[100px] sm:min-w-[120px] md:min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
+                  <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 mb-2 sm:mb-3 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all relative overflow-visible">
                     <DeliveryIcon />
-                    <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5 rounded-full z-10">
+                    <span className="absolute -top-2 left-1/2 -translate-x-1/2 bg-yellow-400 text-black text-[9px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full z-10">
                       HASTA
                     </span>
                   </div>
-                  <p className="text-yellow-400 font-bold text-xl mb-1">50% OFF</p>
-                  <p className="text-white text-xs font-bold uppercase leading-tight">
+                  <p className="text-yellow-400 font-bold text-base sm:text-lg md:text-xl mb-1">50% OFF</p>
+                  <p className="text-white text-[10px] sm:text-xs font-bold uppercase leading-tight">
                     TE LLEGAN<br />MAÑANA
                   </p>
                 </div>
 
                 {/* Nuevas Marcas */}
-                <div className="flex flex-col items-center min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
-                  <div className="bg-white rounded-xl p-4 mb-3 w-20 h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
+                <div className="flex flex-col items-center min-w-[100px] sm:min-w-[120px] md:min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
+                  <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 mb-2 sm:mb-3 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
                     <StoreIcon />
                   </div>
-                  <p className="text-yellow-400 font-bold text-xl mb-1">20% OFF</p>
-                  <p className="text-white text-xs font-bold uppercase">NUEVAS MARCAS</p>
+                  <p className="text-yellow-400 font-bold text-base sm:text-lg md:text-xl mb-1">20% OFF</p>
+                  <p className="text-white text-[10px] sm:text-xs font-bold uppercase">NUEVAS MARCAS</p>
                 </div>
 
                 {/* Inmuebles */}
-                <div className="flex flex-col items-center min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
-                  <div className="bg-white rounded-xl p-4 mb-3 w-20 h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
+                <div className="flex flex-col items-center min-w-[100px] sm:min-w-[120px] md:min-w-[140px] text-center cursor-pointer hover:opacity-80 transition group">
+                  <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 mb-2 sm:mb-3 w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
                     <HouseIcon />
                   </div>
-                  <p className="text-yellow-400 font-bold text-xl mb-1">INMUEBLES</p>
-                  <p className="text-white text-xs font-bold uppercase leading-tight">
+                  <p className="text-yellow-400 font-bold text-base sm:text-lg md:text-xl mb-1">INMUEBLES</p>
+                  <p className="text-white text-[10px] sm:text-xs font-bold uppercase leading-tight">
                     COMPRA, VENDE<br />O ARRIENDA
                   </p>
                 </div>
@@ -184,20 +184,20 @@ export function HomeClient() {
           </div>
 
           {/* Timer Section */}
-          <div style={{ background: 'linear-gradient(90deg, #2a2a2a 0%, #404040 100%)' }} className="py-4">
+          <div style={{ background: 'linear-gradient(90deg, #2a2a2a 0%, #404040 100%)' }} className="py-3 sm:py-4">
             <div className="container mx-auto px-4">
-              <div className="flex items-center justify-center gap-4">
-                <span className="text-white font-black text-2xl tracking-wider">APROVECHA</span>
-                <div className="flex gap-2 items-center">
-                  <div className="bg-black text-white font-black text-2xl px-4 py-2 rounded-lg min-w-[60px] text-center shadow-xl">
+              <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4">
+                <span className="text-white font-black text-sm sm:text-lg md:text-xl lg:text-2xl tracking-wider">APROVECHA</span>
+                <div className="flex gap-1 sm:gap-2 items-center">
+                  <div className="bg-black text-white font-black text-base sm:text-lg md:text-xl lg:text-2xl px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-lg min-w-[40px] sm:min-w-[50px] md:min-w-[60px] text-center shadow-xl">
                     {String(timeLeft.hours).padStart(2, '0')}
                   </div>
-                  <span className="text-white font-black text-2xl">:</span>
-                  <div className="bg-black text-white font-black text-2xl px-4 py-2 rounded-lg min-w-[60px] text-center shadow-xl">
+                  <span className="text-white font-black text-base sm:text-lg md:text-xl lg:text-2xl">:</span>
+                  <div className="bg-black text-white font-black text-base sm:text-lg md:text-xl lg:text-2xl px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-lg min-w-[40px] sm:min-w-[50px] md:min-w-[60px] text-center shadow-xl">
                     {String(timeLeft.minutes).padStart(2, '0')}
                   </div>
-                  <span className="text-white font-black text-2xl">:</span>
-                  <div className="bg-black text-white font-black text-2xl px-4 py-2 rounded-lg min-w-[60px] text-center shadow-xl">
+                  <span className="text-white font-black text-base sm:text-lg md:text-xl lg:text-2xl">:</span>
+                  <div className="bg-black text-white font-black text-base sm:text-lg md:text-xl lg:text-2xl px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-lg min-w-[40px] sm:min-w-[50px] md:min-w-[60px] text-center shadow-xl">
                     {String(timeLeft.seconds).padStart(2, '0')}
                   </div>
                 </div>
@@ -206,37 +206,37 @@ export function HomeClient() {
           </div>
 
           {/* Bottom Banner - Ofertón de fin de semana */}
-          <div style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)' }} className="py-12">
+          <div style={{ background: 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)' }} className="py-6 sm:py-8 md:py-12">
             <div className="container mx-auto px-4">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-12">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 md:gap-12">
                 {/* Left side - Ofertón text */}
                 <div className="flex-1 text-center md:text-left">
-                  <div className="mb-2">
-                    <span className="text-white font-black text-3xl tracking-wide">BLACK </span>
-                    <span className="text-yellow-400 font-black text-3xl tracking-wide">FRIDAY</span>
+                  <div className="mb-1 sm:mb-2">
+                    <span className="text-white font-black text-lg sm:text-2xl md:text-3xl tracking-wide">BLACK </span>
+                    <span className="text-yellow-400 font-black text-lg sm:text-2xl md:text-3xl tracking-wide">FRIDAY</span>
                   </div>
-                  <div className="flex items-center justify-center md:justify-start mb-2">
-                    <span className="text-white font-black text-5xl md:text-6xl tracking-tight">OFERT</span>
+                  <div className="flex items-center justify-center md:justify-start mb-1 sm:mb-2">
+                    <span className="text-white font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight">OFERT</span>
                     <ClockIcon />
-                    <span className="text-white font-black text-5xl md:text-6xl tracking-tight">N DE</span>
+                    <span className="text-white font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight">N DE</span>
                   </div>
-                  <h3 className="text-white font-black text-5xl md:text-6xl tracking-tight">FIN DE SEMANA</h3>
+                  <h3 className="text-white font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight">FIN DE SEMANA</h3>
                 </div>
 
                 {/* Right side - Discount code */}
                 <div className="flex-shrink-0">
-                  <div className="bg-white rounded-xl p-8 text-center shadow-2xl relative">
-                    <div className="mb-3">
-                      <span className="text-6xl font-black">10%</span>
-                      <span className="text-3xl font-black ml-2">OFF</span>
+                  <div className="bg-white rounded-xl p-4 sm:p-6 md:p-8 text-center shadow-2xl relative">
+                    <div className="mb-2 sm:mb-3">
+                      <span className="text-4xl sm:text-5xl md:text-6xl font-black">10%</span>
+                      <span className="text-xl sm:text-2xl md:text-3xl font-black ml-1 sm:ml-2">OFF</span>
                     </div>
-                    <p className="text-lg font-bold mb-4">ADICIONAL</p>
-                    <div className="bg-yellow-400 text-black font-bold py-3 px-6 rounded-full mb-4 inline-block">
+                    <p className="text-sm sm:text-base md:text-lg font-bold mb-3 sm:mb-4">ADICIONAL</p>
+                    <div className="bg-yellow-400 text-black font-bold py-2 sm:py-2.5 md:py-3 px-4 sm:px-5 md:px-6 rounded-full mb-3 sm:mb-4 inline-block text-sm sm:text-base">
                       Compra mínima <span className="font-black">$200.000</span>
                     </div>
-                    <div className="bg-gray-100 py-3 px-6 rounded-lg inline-block">
-                      <span className="text-base font-bold">Código: </span>
-                      <span className="font-black text-xl">FINDE10</span>
+                    <div className="bg-gray-100 py-2 sm:py-2.5 md:py-3 px-4 sm:px-5 md:px-6 rounded-lg inline-block">
+                      <span className="text-xs sm:text-sm md:text-base font-bold">Código: </span>
+                      <span className="font-black text-base sm:text-lg md:text-xl">FINDE10</span>
                     </div>
                   </div>
                 </div>

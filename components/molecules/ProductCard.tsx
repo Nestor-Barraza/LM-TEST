@@ -38,19 +38,19 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </div>
         )}
         {discount > 0 && (
-          <div className="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
+          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-red-500 text-white px-1.5 py-0.5 sm:px-2 sm:py-1 rounded text-[10px] sm:text-xs font-bold">
             -{discount}%
           </div>
         )}
         {product.condition === 'new' && (
-          <div className="absolute bottom-3 left-3 bg-blue-600 text-white px-2 py-1 rounded text-xs font-bold">
+          <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 bg-blue-600 text-white px-1.5 py-0.5 sm:px-2 sm:py-1 rounded text-[10px] sm:text-xs font-bold">
             Nuevo
           </div>
         )}
       </div>
 
-      <div className="p-3 flex-1 flex flex-col">
-        <h3 className="text-sm font-medium text-gray-900 line-clamp-2 mb-2">
+      <div className="p-2.5 sm:p-3 md:p-4 flex-1 flex flex-col">
+        <h3 className="text-xs sm:text-sm font-medium text-gray-900 line-clamp-2 mb-2">
           {product.title}
         </h3>
 
@@ -60,9 +60,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               {[...Array(5)].map((_, i) => (
                 <Star
                   key={i}
-                  size={14}
                   className={cn(
-                    'transition-colors',
+                    'w-3 h-3 sm:w-3.5 sm:h-3.5 transition-colors',
                     i < Math.floor(rating)
                       ? 'fill-yellow-400 text-yellow-400'
                       : 'text-gray-300'
@@ -70,24 +69,24 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 />
               ))}
             </div>
-            <span className="text-xs text-gray-600">({reviewsCount})</span>
+            <span className="text-[10px] sm:text-xs text-gray-600">({reviewsCount})</span>
           </div>
         )}
 
         <div className="mb-2">
-          <div className="text-xl font-bold text-gray-900">
+          <div className="text-base sm:text-lg md:text-xl font-bold text-gray-900">
             ${product.price.toLocaleString('es-AR')}
           </div>
           {product.original_price && (
-            <div className="text-xs text-gray-500 line-through">
+            <div className="text-[10px] sm:text-xs text-gray-500 line-through">
               ${product.original_price.toLocaleString('es-AR')}
             </div>
           )}
         </div>
 
         {product.shipping?.free_shipping && (
-          <div className="flex items-center gap-1 text-xs text-green-700 font-medium">
-            <Truck size={12} />
+          <div className="flex items-center gap-1 text-[10px] sm:text-xs text-green-700 font-medium">
+            <Truck className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
             Envío gratis
           </div>
         )}
