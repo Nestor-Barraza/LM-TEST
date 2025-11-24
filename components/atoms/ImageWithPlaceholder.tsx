@@ -6,6 +6,8 @@ import type { ImageProps } from 'next/image';
 
 type ImageWithPlaceholderProps = Omit<ImageProps, 'onLoad' | 'onError'>;
 
+const shimmerPlaceholder = `data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNmM2Y0ZjYiLz48L3N2Zz4=`;
+
 export function ImageWithPlaceholder(props: ImageWithPlaceholderProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -20,13 +22,20 @@ export function ImageWithPlaceholder(props: ImageWithPlaceholderProps) {
     );
   }
 
+  const imageProps = props.priority
+    ? { ...props }
+    : { ...props, loading: 'lazy' as const };
+
   return (
     <>
       {isLoading && (
         <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 animate-[shimmer_2s_infinite] bg-[length:200%_100%]" />
       )}
       <Image
-        {...props}
+        {...imageProps}
+        placeholder="blur"
+        blurDataURL={shimmerPlaceholder}
+        quality={85}
         onLoad={() => setIsLoading(false)}
         onError={() => {
           setIsLoading(false);

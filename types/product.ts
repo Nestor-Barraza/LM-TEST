@@ -50,6 +50,7 @@ export interface Product {
   condition: 'new' | 'used';
   thumbnail?: string;
   category?: string;
+  available_quantity?: number;
   installments?: ProductInstallments;
   shipping?: ProductShipping;
   reviews?: ProductReviews;

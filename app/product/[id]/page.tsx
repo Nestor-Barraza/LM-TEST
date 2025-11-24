@@ -3,7 +3,9 @@ import { notFound, redirect } from 'next/navigation';
 import Link from 'next/link';
 import sql from '@/lib/db';
 import { Header } from '@/components/organisms/Header';
+import { Breadcrumb } from '@/components/molecules/Breadcrumb';
 import { ImageWithPlaceholder } from '@/components/atoms/ImageWithPlaceholder';
+import { ProductClient } from './ProductClient';
 
 interface ProductPageProps {
   params: Promise<{
@@ -16,6 +18,7 @@ interface Product {
   title: string;
   description: string | null;
   price: number;
+  original_price?: number;
   currency: string;
   condition: string;
   available_quantity: number;
@@ -211,128 +214,150 @@ export default async function ProductPage({ params }: ProductPageProps) {
       />
       <Header onSearch={handleSearch} />
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        <Link
-          href="/"
-          className="inline-flex items-center text-sm text-blue-600 hover:text-blue-700 mb-6"
-        >
-          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Volver
-        </Link>
+      <main className="bg-gray-50 min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <Breadcrumb
+            items={[
+              { label: 'Inicio', href: '/' },
+              ...(product.category_name ? [{
+                label: product.category_name,
+                href: `/search?q=${encodeURIComponent(product.category_name.toLowerCase())}`,
+              }] : []),
+              { label: product.title },
+            ]}
+          />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <div className="relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden">
-              {product.images.length > 0 && product.images[0] ? (
-                <ImageWithPlaceholder
-                  src={product.images[0]}
-                  alt={product.title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-contain"
-                  priority
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <svg className="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                </div>
-              )}
-            </div>
-
-            {product.images.length > 1 && (
-              <div className="grid grid-cols-4 gap-2">
-                {product.images.slice(1, 5).map((image, idx) => (
-                  <div key={idx} className="relative aspect-square bg-gray-100 rounded overflow-hidden">
+          <div className="bg-white rounded-lg overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
+              {/* Images Section */}
+              <div>
+                <div className="relative bg-white rounded-lg overflow-hidden mb-4 aspect-square border border-gray-200">
+                  {product.images.length > 0 && product.images[0] ? (
                     <ImageWithPlaceholder
-                      src={image}
-                      alt={`${product.title} - imagen ${idx + 2}`}
+                      src={product.images[0]}
+                      alt={product.title}
                       fill
-                      sizes="150px"
-                      className="object-contain"
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-contain p-4"
+                      priority
                     />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="space-y-6">
-            <div>
-              <div className="text-sm text-gray-500 mb-2">
-                {product.condition === 'new' ? 'Nuevo' : 'Usado'} | {product.sold_quantity} vendidos
-              </div>
-              <h1 className="text-2xl font-normal text-gray-900 mb-4">
-                {product.title}
-              </h1>
-
-              {Number(product.average_rating) > 0 && (
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="flex items-center">
-                    {[...Array(5)].map((_, i) => (
-                      <span
-                        key={i}
-                        className={`text-lg ${
-                          i < Math.round(Number(product.average_rating))
-                            ? 'text-yellow-400'
-                            : 'text-gray-300'
-                        }`}
-                      >
-                        ★
-                      </span>
-                    ))}
-                  </div>
-                  <span className="text-sm text-gray-600">
-                    {Number(product.average_rating).toFixed(1)} ({product.review_count} {product.review_count === 1 ? 'opinión' : 'opiniones'})
-                  </span>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <svg className="w-24 h-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                  )}
+                  {Number(product.original_price) > 0 && (
+                    <div className="absolute top-4 left-4 bg-red-500 text-white px-3 py-1.5 rounded-md text-sm font-bold shadow-lg">
+                      -{Math.round(((Number(product.original_price) - Number(product.price)) / Number(product.original_price)) * 100)}%
+                    </div>
+                  )}
                 </div>
-              )}
-
-              <div className="text-4xl font-light text-gray-900 mb-6">
-                ${Number(product.price).toLocaleString('es-AR')}
               </div>
-            </div>
 
-            <div className="border-t border-gray-200 pt-6">
-              <div className="space-y-4">
-                <div>
-                  <h2 className="text-sm font-medium text-gray-900 mb-2">Stock disponible</h2>
-                  <p className="text-sm text-gray-600">
-                    {product.available_quantity} {product.available_quantity === 1 ? 'unidad' : 'unidades'}
-                  </p>
-                </div>
-
+              {/* Product Info Section */}
+              <div>
                 {product.category_name && (
-                  <div>
-                    <h2 className="text-sm font-medium text-gray-900 mb-2">Categoría</h2>
-                    <p className="text-sm text-blue-600">{product.category_name}</p>
+                  <div className="mb-3">
+                    <span className="text-xs text-gray-600 uppercase tracking-wide">
+                      {product.category_name}
+                    </span>
                   </div>
                 )}
 
-                <button className="w-full bg-blue-600 text-white py-3 px-6 rounded hover:bg-blue-700 transition-colors font-medium">
-                  Comprar ahora
-                </button>
+                <h1 className="text-xl md:text-2xl font-normal text-gray-900 mb-4">
+                  {product.title}
+                </h1>
 
-                <button className="w-full bg-blue-100 text-blue-600 py-3 px-6 rounded hover:bg-blue-200 transition-colors font-medium">
-                  Agregar al carrito
-                </button>
+                {Number(product.average_rating) > 0 && (
+                  <div className="flex items-center gap-2 mb-6">
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <span
+                          key={i}
+                          className={`text-base ${
+                            i < Math.floor(Number(product.average_rating))
+                              ? 'text-yellow-400'
+                              : 'text-gray-300'
+                          }`}
+                        >
+                          ★
+                        </span>
+                      ))}
+                    </div>
+                    <span className="text-sm text-gray-600">
+                      {Number(product.average_rating).toFixed(1)} de 5 ({product.review_count.toLocaleString()} {product.review_count === 1 ? 'opinión' : 'opiniones'})
+                    </span>
+                  </div>
+                )}
+
+                <div className="mb-6">
+                  <div className="text-4xl font-normal text-gray-900 mb-1">
+                    ${Number(product.price).toLocaleString('es-AR')} COP
+                  </div>
+                  {Number(product.original_price) > 0 && (
+                    <>
+                      <div className="text-base text-gray-500 line-through mb-2">
+                        ${Number(product.original_price).toLocaleString('es-AR')} COP
+                      </div>
+                      <div className="text-base text-green-600 font-medium">
+                        Ahorras ${(Number(product.original_price) - Number(product.price)).toLocaleString('es-AR')} COP
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <div className="space-y-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                    </svg>
+                    <div>
+                      <p className="text-base font-medium text-gray-900">Envío gratis</p>
+                      <p className="text-sm text-gray-600">Llega en 2 días hábiles</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    <div>
+                      <p className="text-base font-medium text-gray-900">Compra protegida</p>
+                      <p className="text-sm text-gray-600">Dinero de vuelta si no lo recibes</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+                  <p className="text-sm text-gray-600 mb-1">Vendedor:</p>
+                  <p className="text-base font-semibold text-gray-900 mb-3">Mercado Oficial</p>
+                  <Link
+                    href={product.category_name ? `/search?q=${encodeURIComponent(product.category_name.toLowerCase())}` : '/'}
+                    className="block w-full py-2.5 border border-ml-blue text-ml-blue rounded-lg text-sm font-medium hover:bg-blue-50 transition-colors text-center"
+                  >
+                    Ver otros productos
+                  </Link>
+                </div>
+
+                <ProductClient product={product} />
               </div>
             </div>
 
             {product.description && (
-              <div className="border-t border-gray-200 pt-6">
-                <h2 className="text-lg font-medium text-gray-900 mb-3">Descripción</h2>
-                <p className="text-sm text-gray-600 whitespace-pre-line">
+              <div className="border-t p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                  Descripción del producto
+                </h2>
+                <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
                   {product.description}
                 </p>
               </div>
             )}
           </div>
         </div>
-      </div>
+      </main>
     </>
   );
 }
