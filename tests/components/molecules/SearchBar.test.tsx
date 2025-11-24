@@ -1,12 +1,13 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { SearchBar } from '@/components/molecules/SearchBar';
-import { useSearchBox, useHits } from 'react-instantsearch';
+import { useSearchBox, useHits, useInstantSearch } from 'react-instantsearch';
 import { useRouter } from 'next/navigation';
 
 jest.mock('react-instantsearch', () => ({
   useSearchBox: jest.fn(),
   useHits: jest.fn(),
+  useInstantSearch: jest.fn(),
   Configure: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
 }));
 
@@ -20,8 +21,32 @@ jest.mock('next/navigation', () => ({
 
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: (props: { src: string; alt: string; fill?: boolean; sizes?: string; className?: string }) => {
-    const { fill: _fill, sizes: _sizes, ...rest } = props;
+  default: (props: {
+    src: string;
+    alt: string;
+    fill?: boolean;
+    sizes?: string;
+    className?: string;
+    placeholder?: string;
+    blurDataURL?: string;
+    quality?: number;
+    loading?: string;
+    priority?: boolean;
+    onLoad?: () => void;
+    onError?: () => void;
+  }) => {
+    const {
+      fill: _fill,
+      sizes: _sizes,
+      placeholder: _placeholder,
+      blurDataURL: _blurDataURL,
+      quality: _quality,
+      loading: _loading,
+      priority: _priority,
+      onLoad: _onLoad,
+      onError: _onError,
+      ...rest
+    } = props;
     return <img {...rest} />;
   },
 }));
@@ -85,6 +110,10 @@ describe('SearchBar', () => {
     (useHits as jest.Mock).mockReturnValue({
       hits: [],
       results: {},
+    });
+
+    (useInstantSearch as jest.Mock).mockReturnValue({
+      status: 'idle',
     });
   });
 
